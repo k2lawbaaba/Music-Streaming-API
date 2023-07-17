@@ -5,7 +5,7 @@ const errorHandler= require('../handleErrors/handleError');
 
 const deleteAlbumById= async (req, res)=>{
     const {error, value}= IdValidator(req.params);
-    console.log(value);
+
     if(error){
         const errors= errorHandler.JoiErrorHandler(error);
         res.status(StatusCodes.BAD_REQUEST).json({Error: errors});

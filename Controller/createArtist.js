@@ -3,7 +3,7 @@ const { artistValidator } = require("../Validators/joiValidator");
 const {StatusCodes}= require ('http-status-codes');
 const errorHandler= require('../handleErrors/handleError');
 const fs = require('fs');
-const nodeMailer = require('../Actions/nodemailer');
+const nodeMailer = require('../Services/nodemailer');
 
 
 const createArtist = async (req, res) => {

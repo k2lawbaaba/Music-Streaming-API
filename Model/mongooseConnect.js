@@ -7,7 +7,7 @@ const connectMongoose=()=>{
     .then(()=>{
         console.log(`Connected to ${uri}`)
     }).catch((err)=>{
-        console.log(`Connection to ${uri} failed`);
+        console.log(`Connection to ${uri} failed ${err}`);
     })
     
 }

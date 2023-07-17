@@ -2,7 +2,7 @@ const {Artist} = require('../Model/mongooseSchema');
 const {updateArtistValidator} =require('../Validators/joiValidator');
 const {StatusCodes} = require('http-status-codes');
 const errorHandler = require('../handleErrors/handleError');
-const nodeMailer =require('../Actions/nodemailer');
+const nodeMailer =require('../Services/nodemailer');
 const updateArtistById= async (req, res)=>{
     const {error, value}= updateArtistValidator(req.body);
     if(error){
@@ -19,15 +19,14 @@ const updateArtistById= async (req, res)=>{
                         email:value.Email,
                         imageURL: file.path,
                         genre: value.Genre,
-                    });
+                    },
+                     {new: true}
+          );
                     const subject=`Album updated successfully`;
                     const message=`Greeting ${updatedArtist.name}.
                         Your artist with the ID number ${updatedArtist._id} has been updated successfully,
                         here's a summary of your changes:
-                        \n\t Name:${value.Name}\n \
-                        \n\t Email:${value.Email}\n \
-                        \n\t Genre:${value.Genre}\n \
-                        \n\t Image:${file.path}\n \
+                        ${updatedArtist}
                         
                         Please login into your account and check it out.\n
                         
@@ -37,7 +36,7 @@ const updateArtistById= async (req, res)=>{
                         Team Musical`
                 if(updatedArtist)
                 {
-                    res.status(StatusCodes.OK).send("Artist profile updated");
+                    res.status(StatusCodes.OK).json({"Artist profile updated": updatedArtist});
                     nodeMailer(updatedArtist.email, subject, message);
                 }
                   else

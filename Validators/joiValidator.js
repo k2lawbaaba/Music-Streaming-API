@@ -84,12 +84,12 @@ const IdValidator=(data)=>{
 }
 const updateAlbumValidator=(data)=>{
     schema = Joi.object({
-        ArtistID:Joi.string()
-        .trim()
-        .required()
-        .messages({
-            'any.required': `Artist ID is required`,
-        }),
+        // ArtistID:Joi.string()
+        // .trim()
+        // .required()
+        // .messages({
+        //     'any.required': `Artist ID is required`,
+        // }),
         AlbumID:Joi.string()
         .trim()
         .required()

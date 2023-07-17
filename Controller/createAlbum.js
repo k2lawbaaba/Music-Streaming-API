@@ -2,7 +2,7 @@ const {Album, Artist} = require('../Model/mongooseSchema');
 const {albumValidator} =require('../Validators/joiValidator');
 const {StatusCodes} = require('http-status-codes');
 const  errorHandler = require('../handleErrors/handleError');
-const nodeMailer = require('../Actions/nodemailer');
+const nodeMailer = require('../Services/nodemailer');
 
 const createAlbum= async (req, res)=>{
     const {error, value}= albumValidator(req.body);

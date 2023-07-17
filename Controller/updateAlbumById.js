@@ -2,7 +2,7 @@ const {Album, Artist} = require('../Model/mongooseSchema');
 const {updateAlbumValidator} =require('../Validators/joiValidator');
 const {StatusCodes} = require('http-status-codes');
 const errorHandler= require("../handleErrors/handleError");
-const nodeMailer= require('../Actions/nodemailer');
+const nodeMailer= require('../Services/nodemailer');
 
 
 const updateAlbumById=async (req, res)=>{
@@ -13,7 +13,7 @@ const updateAlbumById=async (req, res)=>{
     }
     else{
         try {
-            const isArtist= await Artist.findById({_id: value.ArtistID});
+            const isArtist= await Artist.findById(req.params.id);
             if(isArtist){
                 const subject=`Album updated successfully`;
                 const message=`Greeting ${isArtist.name}.
@@ -32,10 +32,12 @@ const updateAlbumById=async (req, res)=>{
                         title:value.Title,
                         releaseYear: value.ReleaseYear,
                         genre: value.Genre,
-                    });
+                    },
+                    {new: true}
+                    );
                 if(updatedAlbum){
                     nodeMailer(isArtist.email, subject, message);
-                    res.status(StatusCodes.OK).send("Album updated");
+                    res.status(StatusCodes.OK).json({"Album updated": updatedAlbum});
                 }
                   else
                   res.status(StatusCodes.EXPECTATION_FAILED).send("Album doesn't exist or already deleted");

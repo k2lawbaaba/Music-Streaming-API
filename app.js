@@ -16,9 +16,9 @@ app.use(cors());
 app.use(xssClean());
 app.use(routes);
 
-
 app.listen(2200, async()=>{
   await connectMongoose();
     console.log("Server running on port 2200");
 })
+
 
