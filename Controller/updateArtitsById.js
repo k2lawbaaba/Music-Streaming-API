@@ -27,7 +27,7 @@ const updateArtistById= async (req, res)=>{
                         \n\t Name:${value.Name}\n \
                         \n\t Email:${value.Email}\n \
                         \n\t Genre:${value.Genre}\n \
-                        \n\t Image:${file}\n \
+                        \n\t Image:${file.path}\n \
                         
                         Please login into your account and check it out.\n
                         
