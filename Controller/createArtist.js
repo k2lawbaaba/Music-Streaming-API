@@ -36,7 +36,7 @@ const createArtist = async (req, res) => {
         res.status(StatusCodes.CREATED).json({"Registration successful": newArtist})
         nodeMailer(value.Email, subject,message);
     } catch (error) {
-        console.log(error);
+        
         if (file) {
                 fs.unlinkSync(file.path);
         }
