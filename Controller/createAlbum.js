@@ -34,7 +34,7 @@ const createAlbum= async (req, res)=>{
                 artistId:value.ArtistID,
                 title: value.Title,
                 releaseYear: value.ReleaseYear,
-                // albumCover: file.path,
+                albumCover: file.path,
                 genre:value.Genre
             })
             let newAlbum= await album.save()
