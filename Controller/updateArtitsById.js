@@ -23,7 +23,7 @@ const updateArtistById= async (req, res)=>{
                      {new: true}
           );
                     const subject=`Album updated successfully`;
-                    const message=`Greeting ${updatedArtist.name}.
+                    const message=`Greeting ${updatedArtist.name},
                         Your artist with the ID number ${updatedArtist._id} has been updated successfully,
                         here's a summary of your changes:
                         ${updatedArtist}

@@ -6,7 +6,7 @@ const errorHandler= require('../handleErrors/handleError');
 const getAllAlbums=async (req, res)=>{
 
     try {
-        const albums= await Album.find({});
+        const albums= await Album.find().populate('artistId','name email imageURL genre');
         res.status(StatusCodes.OK).json({"Albums": albums});
     } catch (error) {
         const errors= errorHandler.dbSchemaErrors(error);

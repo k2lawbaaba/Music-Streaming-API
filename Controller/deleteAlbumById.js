@@ -14,7 +14,14 @@ const deleteAlbumById= async (req, res)=>{
         try {            
                 const deleteData =  await Album.findByIdAndDelete({_id: value.id});
                 if(deleteData)
-                  res.status(StatusCodes.OK).send("Album deleted");
+                {
+                    
+                    await Artist.updateOne(
+                        {_id:deleteData.artistId},
+                        { $pull: {albums:deleteData._id } } // Remove the album ID from the albums array
+                        )
+                    res.status(StatusCodes.OK).send("Album deleted");
+                }
                   else
                   res.status(StatusCodes.EXPECTATION_FAILED).send("Album doesn't exist or already deleted");       
           

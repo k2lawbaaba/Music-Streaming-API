@@ -47,55 +47,62 @@ const ArtistSchema = new mongoose.Schema({
     message: '{VALUE} is not a genre'
     // restricting user input
   },
+  albums:{
+    type:[{type:mongoose.Schema.Types.ObjectId, ref:"album"}]
+  },
   createdAt: Date
 });
 
 const AlbumSchema= new mongoose.Schema({
-  
-    artistId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"Artist",
-        required:[true,"artistId is required"]
-    },
     title:{
         type :String,
         require:[true,"Title field cannot be empty"]    
     },
-
+    
     releaseYear:{
         type:Number
+    },
+    albumCover: {
+        type: String,
+        // required:[true, 'Album cover is required'],
     },
     genre: {
         type: String,
         enum: [
-          "AfroBeat",
-          "Pop",
-          "Rock",
-          "HipHop",
-          "R&B",
-          "Soul",
-          "Jazz,",
-          "Blues",
-          "Country",
-          "Electronic",
-          "Reggae",
-          "Classical",
-          "Folk",
-          "Dance",
-          "Punk",
-          "Metal",
-          "Alternative",
-          "Indie",
-          "Funk",
-          "Gospel",
-          "Latin",
-          "World",
+            "AfroBeat",
+            "Pop",
+            "Rock",
+            "HipHop",
+            "R&B",
+            "Soul",
+            "Jazz,",
+            "Blues",
+            "Country",
+            "Electronic",
+            "Reggae",
+            "Classical",
+            "Folk",
+            "Dance",
+            "Punk",
+            "Metal",
+            "Alternative",
+            "Indie",
+            "Funk",
+            "Gospel",
+            "Latin",
+            "World",
         ], 
         message: '{VALUE} is not a genre'
         // restricting user input
-      },
-
-
+    },
+    artistId:{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref:'artist',
+        required:[true,"artistId is required"]
+    },
+    
 })
+
 module.exports.Artist = mongoose.model("artist", ArtistSchema);
-module.exports.Album =mongoose.model("album",AlbumSchema);
+module.exports.Album = mongoose.model("album",AlbumSchema);
+

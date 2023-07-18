@@ -1,4 +1,4 @@
-const { Album, Artist } = require("../Model/mongooseSchema");
+const { Artist, Album } = require("../Model/mongooseSchema");
 const { StatusCodes } = require("http-status-codes");
 const errorHandler = require("../handleErrors/handleError");
 const { IdValidator } = require("../Validators/joiValidator");
@@ -10,9 +10,10 @@ const getAlbumById = async (req, res) => {
     res.status(StatusCodes.BAD_REQUEST).json({ Error: errors });
   } else {
     try {
-      const album = await Album.findById({ _id: value.id });
+      const album = await Album.findById(value.id).populate('artistId','name email imageURL genre');
+    
       if (album) {
-        const isArtist = await Artist.findById({ _id: album.artistId });
+        const isArtist = await Artist.findById(album.artistId);
         if (isArtist) res.status(StatusCodes.OK).json({ Album: album });
         else
           res
@@ -24,6 +25,7 @@ const getAlbumById = async (req, res) => {
           .send("Album doesn't exist or already deleted");
       }
     } catch (error) {
+        console.log(error);
         if(error.kind =="ObjectId")
         res.status(StatusCodes.FORBIDDEN).json({message: "ID is incorrect."});
         else

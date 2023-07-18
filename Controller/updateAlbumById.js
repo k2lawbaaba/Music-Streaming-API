@@ -16,18 +16,8 @@ const updateAlbumById=async (req, res)=>{
             const isArtist= await Artist.findById(req.params.id);
             if(isArtist){
                 const subject=`Album updated successfully`;
-                const message=`Greeting ${isArtist.name}.
-                    Your album with the ID number ${value.AlbumID} has been updated successfully,
-                    You can now share your album with your fans.
-                    
-                    Here are the details of the updated album.
-                    \n\t  Title: ${value.Title}\n \
-                    \n\t Genre: ${value.Genre}.\n \
-                    \n\t  Release Year: ${value.ReleaseYear}\n \
-
-                    Best regards
-                    Team Musical`
-                const updatedAlbum =  await Album.findByIdAndUpdate({_id: value.AlbumID}, 
+                
+                var updatedAlbum =  await Album.findByIdAndUpdate({_id: value.AlbumID}, 
                     {
                         title:value.Title,
                         releaseYear: value.ReleaseYear,
@@ -36,6 +26,15 @@ const updateAlbumById=async (req, res)=>{
                     {new: true}
                     );
                 if(updatedAlbum){
+                    const message=`Greeting ${isArtist.name}.
+                    Your album with the ID number ${value.AlbumID} has been updated successfully,
+                    You can now share your album with your fans.
+                    
+                    Here are the details of the updated album.
+                        ${updatedAlbum}
+
+                    Best regards
+                    Team Musical`
                     nodeMailer(isArtist.email, subject, message);
                     res.status(StatusCodes.OK).json({"Album updated": updatedAlbum});
                 }

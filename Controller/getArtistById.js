@@ -12,7 +12,7 @@ const getArtistById = async (req, res) => {
   
   else {
     try {
-      const isArtist = await Artist.findById({ _id: value.id });
+      const isArtist = await Artist.findById({ _id: value.id }).populate('albums','title genre releaseYear albumCover');
       if (isArtist) {
         res.status(StatusCodes.OK).json({ Artist: isArtist });
       } else {

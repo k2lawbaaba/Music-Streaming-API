@@ -5,7 +5,7 @@ const errorHandler= require('../handleErrors/handleError');
 const getAllArtists= async (req, res)=>{
 
     try {
-        const allArtists= await Artist.find({});
+        const allArtists= await Artist.find({}).populate('albums','title genre releaseYear albumCover');
         res.status(StatusCodes.OK).json({"Artists": allArtists});
     } catch (error) {
         const errors= errorHandler.dbSchemaErrors(error);

@@ -24,7 +24,7 @@ route.get('/api/albums/:id', getAlbumById);
 
 // Post methods
 route.post('/api/artists',upload.single('file'), createArtist);
-route.post('/api/albums',createAlbum);
+route.post('/api/albums',upload.single('file'), createAlbum);
 
 
 // PUT methods for update
