@@ -22,3 +22,4 @@ app.listen(2200, async()=>{
 })
 
 
+module.exports=app;
